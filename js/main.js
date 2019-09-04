@@ -71,8 +71,8 @@ let yaw = 0;
 let pitch = 0;
 function updateCamRotation(event) {
     // Add mouse movement to the pitch and yaw variables so that we can update the camera rotation in the loop below.
-    yaw += event.movementX * 0.001;
-    pitch += event.movementY * 0.001;
+    yaw -= event.movementX * 0.001;
+    pitch -= event.movementY * 0.001;
 }
 
 document.addEventListener('pointerlockchange', () => {
