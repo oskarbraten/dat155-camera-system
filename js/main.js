@@ -71,8 +71,8 @@ let yaw = 0;
 let pitch = 0;
 function updateCamRotation(event) {
     // Add mouse movement to the pitch and yaw variables so that we can update the camera rotation in the loop below.
-    yaw += event.movementX * 0.001;
-    pitch += event.movementY * 0.001;
+    yaw -= event.movementX * 0.001;
+    pitch -= event.movementY * 0.001;
 }
 
 document.addEventListener('pointerlockchange', () => {
@@ -126,30 +126,26 @@ function loop(now) {
     let delta = now - then;
     then = now;
 
-    const moveSpeed = move.speed * delta;
+    const moveSpeed = move.speed * delta; // Multiplied by delta such that movement speed is independent of rendering speed.
 
     // Reduce accumulated velocity by 25% each frame.
     vec3.scale(velocity, velocity, 0.75);
     //vec3.set(velocity, 0.0, 0.0, 0.0); // (Alternatively remove it completely, feels more responsive?)
 
+    // Hint: Add movement to the velocity vector.
+    
     if (move.left) {
-        velocity[0] -= moveSpeed;
+        // TODO: implement movement
     }
 
     if (move.right) {
-        velocity[0] += moveSpeed;
+        // TODO: implement movement
     }
 
-    if (move.forward) {
-        velocity[2] -= moveSpeed;
-    }
-
-    if (move.backward) {
-        velocity[2] += moveSpeed;
-    }
+    // ... (add a case for move.forward and move.backward)
 
     // Given the accumulated mouse movement this frame, use the mouse look controller to calculate the new rotation of the camera.
-    mouseLookController.update(pitch, yaw);
+    mouseLookController.update(pitch, yaw); // TODO: implement code in MouseLookController
 
     // Camera rotation is represented as a quaternion.
     // We rotate the velocity vector based on its rotation in order to translate along the direction we're looking.
